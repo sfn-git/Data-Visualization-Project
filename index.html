@@ -1,0 +1,89 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Ropa+Sans&display=swap" rel="stylesheet"> 
+    <title>CPS 5745 - Project 1</title>
+</head>
+<body>
+    
+<!-- Scripts -->
+<script src ="scripts/jquery-3.4.1.min.js"></script>
+<script src="scripts/login.js"></script>
+<script src="scripts/closeWindow.js"></script>
+<script src="scripts/fileUpload.js"></script>
+
+    <div class="menu">
+
+        <div class="navbar">
+            <div class="dropdown">
+                <button class="dropbtn">File
+                  <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                  <input type="file" id="csvFileButton" accept=".csv" style="display: none"/>
+                  <a href="#" id="csvFile">CSV file</a>
+                  </span>
+                  <a href="#">Login to DB</a>
+                  <a href="#">Logout of DB</a>
+                  <a href="#" onclick="closeWindow()">Exit</a>
+                </div>
+              </div><div class="dropdown">
+                <button class="dropbtn">View
+                  <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                  <a href="#">Line</a>
+                  <a href="#">Pie</a>
+                  <a href="#">Bar</a>
+                  <a href="#">Map</a>
+                </div>
+              </div><div class="dropdown">
+                <button class="dropbtn">Settings
+                  <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                  <a href="#">User Info</a>
+                </div>
+              </div>
+            <div class="dropdown">
+              <button class="dropbtn">Help
+                <i class="fa fa-caret-down"></i>
+              </button>
+              <div class="dropdown-content">
+                <a href="#">Info</a>
+                <a href="#">Client</a>
+              </div>
+            </div>
+          </div> 
+
+    </div>
+
+    <div class="message"><p>Message: </p></div>
+
+    <div class="data">
+
+        <h2>Data</h2>
+
+    </div>
+
+    <div class="flex2">
+
+        <div class="table" style="border-bottom: .1px solid black;">
+        
+            <h1>Graph</h1>
+
+        </div>
+
+        <div class="table" style="border-top: .1px solid black;">
+            
+           <h1>Table</h1>
+        
+        </div>
+
+    </div>
+
+</body>
+</html>
