@@ -5,15 +5,20 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Ropa+Sans&display=swap" rel="stylesheet"> 
-    <title>CPS 5745 - Project 1</title>
+    <title>CPS 5745 - Project 2</title>
 </head>
 <body>
     
-<!-- Scripts -->
-<script src ="scripts/jquery-3.4.1.min.js"></script>
-<script src="scripts/login.js"></script>
-<script src="scripts/closeWindow.js"></script>
-<script src="scripts/fileUpload.js"></script>
+<!-- External Scripts -->
+<script src ="scripts/lib/jquery-3.4.1.min.js"></script> <!--jQuery-->
+<script src="scripts/lib/cookie.min.js"></script> <!-- Cookies -->
+<script src ="scripts/lib/loader.js"></script> <!--Google Charts-->
+<script src="scripts/lib/d3.js"></script><!--D3.js-->
+<script src="scripts/lib/d3plus.full.min.js"></script><!--D3 Plus-->
+<script src="scripts/lib/simple-statistics.min.js"></script>
+<script src="scripts/lib/pearson-correlation.js"></script>
+
+<!-- Menu Bar -->
 
     <div class="menu">
 
@@ -23,29 +28,36 @@
                   <i class="fa fa-caret-down"></i>
                 </button>
                 <div class="dropdown-content">
-                  <input type="file" id="csvFileButton" accept=".csv" style="display: none"/>
+                  <input type="file" id="csvFileButton" accept=".csv" style="display: none" value="" autocomplete="off"/>
                   <a href="#" id="csvFile">CSV file</a>
-                  </span>
-                  <a href="#">Login to DB</a>
-                  <a href="#">Logout of DB</a>
-                  <a href="#" onclick="closeWindow()">Exit</a>
+                  <a href="#" id="login-menu-btn">Login to DB</a>
+                  <a href="#" id="logout">Logout of DB</a>
+                  <a href="#" id="db1">Load DB Data 1</a>
+                  <a href="#" id="db2">Load DB Data 2</a>
+                  <a href="#" id="db3">Load DB Data 3</a>
+                  <a href="#" id="exit">Exit</a>
                 </div>
               </div><div class="dropdown">
                 <button class="dropbtn">View
                   <i class="fa fa-caret-down"></i>
                 </button>
                 <div class="dropdown-content">
-                  <a href="#">Line</a>
-                  <a href="#">Pie</a>
-                  <a href="#">Bar</a>
-                  <a href="#">Map</a>
+                  <a href="#" id="line">Line</a>
+                  <a href="#" id="pie">Pie</a>
+                  <a href="#" id="bar">Bar</a>
+                  <a href="#" id="map">Map</a>
+                  <a href="#" id="newChart">New Charts</a>
+                  <a href="#" id="analytics">Analytics</a>
+                  
                 </div>
               </div><div class="dropdown">
                 <button class="dropbtn">Settings
                   <i class="fa fa-caret-down"></i>
                 </button>
                 <div class="dropdown-content">
-                  <a href="#">User Info</a>
+                  <a href="#" id="userInfo">User Info</a>
+                  <a href="#" id="save">Save</a>
+
                 </div>
               </div>
             <div class="dropdown">
@@ -53,37 +65,83 @@
                 <i class="fa fa-caret-down"></i>
               </button>
               <div class="dropdown-content">
-                <a href="#">Info</a>
-                <a href="#">Client</a>
+                <a href="#" id="info">Info</a>
+                <a href="#" id="client">Client</a>
               </div>
             </div>
           </div> 
 
     </div>
 
-    <div class="message"><p>Message: </p></div>
+<!-- Message Bar -->
 
-    <div class="data">
-
-        <h2>Data</h2>
-
+    <div class="message">
+      <p>Message: <span id="messageArea"></span></p>
     </div>
 
+<!--  Data  -->
+
+    <div class="data">
+        <h2>Data</h2>
+
+        <p>Please select one of the following choices, and then run one of the graph in the View menu (check menu bar). Note: The empty, NULL or NaN values will be excluded</p>
+        <input type="radio" name="graphSelect" id=""><br>
+        <input type="radio" name="graphSelect" id="AvgWages"> AvgWages (Bar, Line) <br>
+        <input type="radio" name="graphSelect" id="EstimatedPopulation"> Estimated Population (Bar, Line) <br>
+        <input type="radio" name="graphSelect" id="State"> State (Bar, Pie) <br>
+        Average Wage Slider<input type="range" min="1" max="100" value="50" id="avgWageSlider">
+        <div id="avgwageValue" style="text-align: center;">50</div>
+        <br>Estimated Population Slider<input type="range" min="1" max="100" value="50" id="estPopSlider"> 
+        <div id="estpopValue" style="text-align: center;">50</div>
+
+    </div>
     <div class="flex2">
 
+<!-- Graph -->
         <div class="table" style="border-bottom: .1px solid black;">
-        
-            <h1>Graph</h1>
-
+          <div id="graph_div" style="flex: 1 0 auto; width: 100%;">
+            <div id="graph1"></div>
+            <div id="graph2"></div>
+          </div>
         </div>
+
+<!-- Table -->
 
         <div class="table" style="border-top: .1px solid black;">
             
-           <h1>Table</h1>
-        
+           <div id="table_div" style="flex: 1 0 auto; width: 100%;"></div>
+      
         </div>
+    </div>
+
+<!-- Login Pop-Up -->
+
+    <div class="login-popup">
+
+      <div id="login_msg"></div>
+
+      <form method="POST" id="login-db">
+
+        <h1>Login to database</h1>
+        <p>Username: <input type="text" name="username" value=""></p> 
+        <p>Password: <input type="password" name="password" value=""></p>
+        <button type="submit" class="login-button">Login</button>
+
+      </form>
+      <button class="login-button cancel" id="login-cancel">Cancel</button>
 
     </div>
+
+
+<!-- My Scripts -->
+<script src="scripts/login.js"></script>
+<script src="scripts/fileUpload.js"></script>
+<script src="scripts/events.js"></script>
+<script src="scripts/graphs.js"></script>
+<script src="scripts/databaser.js"></script>
+<script src="scripts/newcharts.js"></script>
+<script src="scripts/slider.js"></script>
+
 
 </body>
 </html>
